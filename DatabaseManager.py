@@ -56,7 +56,12 @@ class Database:
         return userId,self.cursor.fetchall()[0][0]
     
     def selectUser(self):
+        if self.userId == None: return
         self.cursor.execute('SELECT * FROM users WHERE userId = ?', (self.userId,))
+        return self.cursor.fetchall()
+    
+    def selectAllUser(self):
+        self.cursor.execute('SELECT * FROM users')
         return self.cursor.fetchall()
 
     def selectPool(self):
@@ -79,3 +84,7 @@ class Database:
             self.insertLevel(self.userId, 1)
         self.cursor.execute('SELECT * FROM rod_levels WHERE userId = ?', (self.userId,))
         return self.cursor.fetchall()[0][1]
+    
+    def selectAllLevel(self):
+        self.cursor.execute('SELECT * FROM rod_levels')
+        return self.cursor.fetchall()
