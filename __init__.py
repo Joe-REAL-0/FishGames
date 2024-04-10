@@ -1,4 +1,5 @@
-from nonebot.params import on_command, CommandArg
+from nonebot import on_command
+from nonebot.params import CommandArg
 from nonebot.adapters.onebot.v11 import Message, Bot, Event
 from .DatabaseManager import Database
 from .CommandHelp import helpMain
