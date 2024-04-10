@@ -1,8 +1,9 @@
 from .DatabaseManager import Database
 from itertools import product
+from math import exp
 
 def calculateRodValue(level):
-    return sum(int(20 * (2 ** (i - 1))) for i in range(1, level + 1))
+    return sum(int(20 * (exp(i - 1))) for i in range(1, level + 1))
 
 def leaderboardMain():
     db = Database()

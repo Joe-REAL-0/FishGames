@@ -81,7 +81,7 @@ class Database:
     def selectLevel(self):
         if self.userId == None: return
         if len(self.cursor.execute('SELECT * FROM rod_levels WHERE userId = ?', (self.userId,)).fetchall()) == 0:
-            self.insertLevel(self.userId, 1)
+            self.insertLevel(1)
         self.cursor.execute('SELECT * FROM rod_levels WHERE userId = ?', (self.userId,))
         return self.cursor.fetchall()[0][1]
     

@@ -2,7 +2,7 @@ from .DatabaseManager import Database
 
 def checkUserMain(user_id):
     db = Database(user_id)
-    userInfo = db.selectUserInfo()
+    userInfo = db.selectUser()
     db.close()
     message = f"用户ID: {user_id}\n"
     message += f"昵称: {userInfo[0]}\n"
