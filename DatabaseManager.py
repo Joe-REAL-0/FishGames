@@ -6,11 +6,11 @@ class Database:
         self.userId = id
         self.connection = sqlite3.connect('database.db')
         self.cursor = self.connection.cursor()
-        self.cursor.execute('CREATE TABLE IF NOT EXISTS users (userId INTEGER PRIMARY KEY, name TEXT, point INTEGER)')
+        self.cursor.execute('CREATE TABLE IF NOT EXISTS users (userId TEXT PRIMARY KEY, name TEXT, point INTEGER)')
         self.connection.commit()
-        self.cursor.execute('CREATE TABLE IF NOT EXISTS rod_levels (userId INTEGER PRIMARY KEY, level INTEGER)')
+        self.cursor.execute('CREATE TABLE IF NOT EXISTS rod_levels (userId TEXT PRIMARY KEY, level INTEGER)')
         self.connection.commit()
-        self.cursor.execute('CREATE TABLE IF NOT EXISTS pool (fishName INTEGER PRIMARY KEY, value INTEGER, count INTEGER, owner INTEGER)')
+        self.cursor.execute('CREATE TABLE IF NOT EXISTS pool (fishName TEXT PRIMARY KEY, value INTEGER, count INTEGER, owner TEXT)')
 
     def close(self):
         self.connection.close()

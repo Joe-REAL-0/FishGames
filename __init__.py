@@ -32,7 +32,7 @@ def check_account(event):
 async def release_handle(bot:Bot, event: Event, args:Message = CommandArg()):
     user_id = event.get_user_id()
     check_account(event)
-    args_sp = args.split(' ')
+    args_sp = args_sp = args.extract_plain_text().split(" ")
     fishName = args_sp[0]
     try:
         count = int(args_sp[1])
