@@ -59,6 +59,23 @@ async def dashboard_handle(bot:Bot, event: Event):
     message = db.selectDashboard()
     db.close()
     await dashboard.finish(message)
+
+@checkFish.handle()
+async def checkFish_handle(bot:Bot, event: Event, args:Message = CommandArg()):
+    fishName = args.extract_plain_text()
+    message = checkFishMain(fishName)
+    await checkFish.finish(message)
+
+@checkUser.handle()
+async def checkUser_handle(bot:Bot, event: Event):
+    user_id = event.sender.user_id
+    message = checkUserMain(user_id)
+    await checkUser.finish(message)
+
+@help.handle()
+async def help_handle(bot:Bot, event: Event):
+    message = helpMain()
+    await help.finish(message)
     
     
     
