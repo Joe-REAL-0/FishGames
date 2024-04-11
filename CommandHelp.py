@@ -5,6 +5,7 @@ def helpMain(command:str = None):
         message+= "钓鱼游戏指令：\n"
         message+= "[钓鱼] - 开始钓鱼\n"
         message+= "[放生 鱼名 数量] - 放生鱼\n"
+        message+= "[排行榜] - 查看全服玩家的总资产排名\n"
         message+= "[升级鱼竿] - 升级钓鱼等级\n"
         message+= "[查询鱼 鱼名] - 查询鱼的归属\n"
         message+= "[信息查询] - 查询个人信息\n"

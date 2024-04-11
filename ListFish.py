@@ -4,7 +4,7 @@ from time import time
 
 lastUsedTime = time()
 
-def listFishMain(data):
+def listFishMain():
     if time() - lastUsedTime < 60:
         return "鱼塘大屏指令有一分钟冷却时间！"
     lastUsedTime = time()

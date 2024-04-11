@@ -10,7 +10,7 @@ class Database:
         self.connection.commit()
         self.cursor.execute('CREATE TABLE IF NOT EXISTS rod_levels (userId TEXT PRIMARY KEY, level INTEGER)')
         self.connection.commit()
-        self.cursor.execute('CREATE TABLE IF NOT EXISTS pool (fishName TEXT PRIMARY KEY, value INTEGER, count INTEGER, owner TEXT)')
+        self.cursor.execute('CREATE TABLE IF NOT EXISTS pool (fishName TEXT, value INTEGER, count INTEGER, owner TEXT)')
 
     def close(self):
         self.connection.close()

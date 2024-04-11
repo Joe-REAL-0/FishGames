@@ -17,6 +17,7 @@ def fishingMain(id):
     db=Database(id)
     poolData=db.selectPool()
     if len(poolData) == 0: return "池塘里暂时没有鱼,请晚点再来"
+    poolData = [list(fish) for fish in poolData] 
     if id in fishingCoolDownDict and fishingCoolDownDict[id] > datetime.now():
         time_difference = fishingCoolDownDict[id] - datetime.now()
         time_in_seconds = time_difference.total_seconds()
