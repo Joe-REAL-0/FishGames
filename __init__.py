@@ -11,7 +11,7 @@ from .ListFish import listFishMain
 from .CheckFish import checkFishMain
 from .CheckUser import checkUserMain
 
-help = on_command('钓鱼游戏')
+helpCommand = on_command('钓鱼游戏')
 release = on_command('放生')
 fishing = on_command('钓鱼')
 upgrade = on_command('升级鱼竿')
@@ -81,8 +81,8 @@ async def checkUser_handle(bot:Bot, event: Event):
     message = checkUserMain(user_id)
     await checkUser.finish(message)
 
-@help.handle()
-async def help_handle(bot:Bot, event: Event):
+@helpCommand.handle()
+async def helpCommand_handle(bot:Bot, event: Event):
     check_account(event)
     message = helpMain()
-    await help.finish(message)   
+    await helpCommand.finish(message)   
