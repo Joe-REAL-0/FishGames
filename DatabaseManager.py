@@ -55,6 +55,10 @@ class Database:
         self.cursor.execute('SELECT name FROM users WHERE userId = ?', (userId,))
         return userId,self.cursor.fetchall()[0][0]
     
+    def selectFish(self,fishName):
+        self.cursor.execute('SELECT * FROM pool WHERE fishName = ?', (fishName,))
+        return self.cursor.fetchall()
+    
     def selectUser(self):
         if self.userId == None: return
         self.cursor.execute('SELECT * FROM users WHERE userId = ?', (self.userId,))

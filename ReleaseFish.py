@@ -10,7 +10,7 @@ def releaseMain(id,fishName,count):
     if not 0<len(fishName)<15:
         return "放生失败！\n*鱼的名称必须少于15字"
     db = Database(id)
-    if db.selectFishOwner(fishName) != None:
+    if len(db.selectFish(fishName)) != 0:
         db.close()
         return "放生失败！\n*鱼塘里已经存在这种鱼了！不能重复放生！"
     if id in fishReleaseCoolDownDict and fishReleaseCoolDownDict[id] > datetime.now():
