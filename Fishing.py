@@ -29,7 +29,7 @@ def fishingMain(id):
     fishDic = {}
     totalValue = 0
     message = f"使用 Lv.{level} 的魚竿釣魚\n抛竿 {level} 次\n-----------\n"
-    for i in level:
+    for i in range(level):
         if random() > successRate: 
             continue
         fish = findFishInPool(random(), poolData)
