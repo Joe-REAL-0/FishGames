@@ -28,7 +28,7 @@ def fishingMain(id):
     successRate=0.4 if level > 9 else 0.8-(level-1)*0.04
     fishDic = {}
     totalValue = 0
-    message = f"使用 Lv.{level} 的魚竿釣魚\n抛竿 {level} 次\n-----------\n"
+    message = f"使用 Lv.{level} 的鱼竿\n抛竿 {level} 次\n-----------\n"
     for i in range(level):
         if random() > successRate: 
             continue

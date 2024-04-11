@@ -29,7 +29,7 @@ class Database:
 
     def increaseLevel(self):
         if self.userId == None: return
-        level = self.selectLevel(self.userId)
+        level = self.selectLevel()
         pointNeeded = int(exp(level-1)*20)
         self.cursor.execute('UPDATE users SET point = point - ? WHERE userId = ?', (pointNeeded, self.userId))
         self.cursor.execute('UPDATE rod_levels SET level = level + 1 WHERE userId = ?', (self.userId,))
