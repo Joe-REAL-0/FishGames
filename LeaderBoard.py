@@ -3,7 +3,7 @@ from itertools import product
 from math import exp
 
 def calculateRodValue(level):
-    return sum(int(20 * (exp(i - 1))) for i in range(1, level + 1))
+    return sum(int(20 * (exp(i - 1))) for i in range(1, level))
 
 def leaderboardMain():
     db = Database()
@@ -11,7 +11,7 @@ def leaderboardMain():
     allRodLevelList = db.selectAllLevel()
     matchingUserList = list(filter(lambda x: x[0][0] == x[1][0] , product(allUserList, allRodLevelList)))
     allUserWealthList = list(map(lambda x: (x[0][0], x[0][1], x[0][2] ,calculateRodValue(x[1][1])), matchingUserList))
-    allUserWealthList.sort(key=lambda x: x[2]+x[3])
+    allUserWealthList.sort(key=lambda x: x[2]+x[3], reverse=True)
     message = "排行榜\n----------\n"
     if len(allUserWealthList) > 5:
         allUserWealthList = allUserWealthList[:5]
