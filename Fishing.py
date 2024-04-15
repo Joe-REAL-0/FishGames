@@ -10,7 +10,7 @@ def findFishInPool(weight, poolData):
     cycleCount = 0
     for fish in poolData:
         cycleCount += fish[2]
-        if weight < cycleCount/totalCount:
+        if weight <= cycleCount/totalCount:
             return fish
 
 def fishingMain(id):
