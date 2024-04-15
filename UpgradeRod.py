@@ -4,7 +4,6 @@ from math import exp
 def upgradeMain(id):
     db = Database(id)
     level = db.selectLevel()
-    db.increaseLevel()
     point = db.selectPoint()
     pointNeeded = int(exp(level-1)*20)
     if point < pointNeeded:

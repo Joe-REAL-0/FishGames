@@ -1,6 +1,7 @@
 from nonebot import on_command
 from nonebot.params import CommandArg
-from nonebot.adapters.onebot.v11 import Message, Bot, Event
+from nonebot.adapters.onebot.v11 import Message, Bot, Event ,MessageSegment
+import aiofiles.os
 from .DatabaseManager import Database
 from .CommandHelp import helpMain
 from .Fishing import fishingMain
@@ -58,8 +59,13 @@ async def upgrade_handle(bot:Bot, event: Event):
 @listPool.handle()
 async def listPool_handle(bot:Bot, event: Event):
     check_account(event)
-    message = listFishMain()
-    await listPool.finish(message)
+    msg=listFishMain()
+    if msg[0]=='/':
+        await listPool.send(MessageSegment.image(msg))
+        await aiofiles.os.remove(msg)
+    else:
+        await listPool.finish(msg)
+    
 
 @leaderboard.handle()
 async def leaderboard_handle(bot:Bot, event: Event):
