@@ -34,7 +34,6 @@ def fishingMain(id):
         if random() > successRate: 
             continue
         fish = findFishInPool(random(), poolData)
-        print(fish,fishDic)
         fishDic[fish[0]] = fishDic.get(fish[0], 0) + 1
         totalValue += fish[1]
         db.reduceFish(fish[0])
