@@ -23,7 +23,7 @@ def listFishMain():
     bk.text((770, 50), text='总鱼数: ', font=Font2, fill="black")
     if len(poolData)>20 :
         bk.text((340, 5),text='当前随机展示池塘内二十种鱼',font=Font3,fill="#eeff00")
-        bk.text((900, 50), text=str(len(poolData))+'条', font=Font2, fill="black")
+        bk.text((900, 50), text=str(len(poolData))+'种', font=Font2, fill="black")
     bk.text((100, 140),text='鱼名',font=Font1,fill="black")
     bk.text((480, 140),text='数量',font=Font1,fill="black")
     bk.text((860, 140),text='价格',font=Font1,fill="black")
