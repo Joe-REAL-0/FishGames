@@ -1,5 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
 from .DatabaseManager import Database
+from random import shuffle
 from time import time
 import os
 
@@ -16,7 +17,8 @@ def listFishMain():
     Font3 = ImageFont.truetype(where+'MiSans-Medium.ttf', 30)
     db = Database()
     poolData = db.selectPool()
-    tp = len(poolData) if len(poolData) <= 20 else 20 
+    tp = len(poolData) if len(poolData) <= 20 else 20
+    poolData = shuffle(poolData[:tp]) 
     im=Image.new(mode="RGB", size=(1090, 210+85*tp), color="white")
     bk = ImageDraw.Draw(im)
     bk.text((380, 35),text='鱼塘大屏',font=ImageFont.truetype(where+'MiSans-Medium.ttf', 80),fill="#adf5ff")

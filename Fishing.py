@@ -6,12 +6,12 @@ from datetime import datetime,timedelta
 fishingCoolDownDict = {}
 
 def findFishInPool(weight, poolData):
-    totalCount = reduce(lambda acc, x: acc + x[1], poolData, 0)
+    totalCount = reduce(lambda acc, x: acc + x[2], poolData, 0)
     cycleCount = 0
-    for fish in poolData:
+    for i in range(len(poolData)):
         cycleCount += fish[2]
         if weight <= cycleCount/totalCount:
-            return fish
+            return i
 
 def fishingMain(id):
     db=Database(id)
@@ -33,11 +33,15 @@ def fishingMain(id):
     for i in range(level):
         if random() > successRate: 
             continue
-        fish = findFishInPool(random(), poolData)
+        fishIndex = findFishInPool(random(), poolData)
+        fish = poolData[fishIndex]
         fishDic[fish[0]] = fishDic.get(fish[0], 0) + 1
         totalValue += fish[1]
         db.reduceFish(fish[0])
-        fish[2] -= 1 if fish[2] > 1 else poolData.remove(fish)
+        if fish[2] > 1:
+            fish[2] -= 1
+        else:
+            poolData.pop(fishIndex)
         if (len(poolData) == 0): break
     if len(fishDic) == 0:
         message += "运气不佳，一条鱼都没钓到"
