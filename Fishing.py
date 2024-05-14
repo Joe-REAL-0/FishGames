@@ -9,6 +9,7 @@ def findFishInPool(weight, poolData):
     totalCount = reduce(lambda acc, x: acc + x[2], poolData, 0)
     cycleCount = 0
     for i in range(len(poolData)):
+        fish = poolData[i]
         cycleCount += fish[2]
         if weight <= cycleCount/totalCount:
             return i
