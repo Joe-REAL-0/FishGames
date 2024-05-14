@@ -35,60 +35,68 @@ async def release_handle(bot:Bot, event: Event, args:Message = CommandArg()):
     check_account(event)
     args_sp = args_sp = args.extract_plain_text().split(" ")
     fishName = args_sp[0]
+    c=MessageSegment.reply(event.message_id)
     try:
         count = int(args_sp[1])
     except:
-        await release.finish("放生失败！\n*鱼的数量必须是个数字!")
+        await release.finish(c+Message("放生失败！\n*鱼的数量必须是个数字!"))
     message = releaseMain(user_id, fishName, count)
-    await release.finish(message)
+    await release.finish(c+Message(message))
 
 @fishing.handle()
 async def fishing_handle(bot:Bot, event: Event):
     check_account(event)
     user_id = event.get_user_id()
     message = fishingMain(user_id)
-    await fishing.finish(message)
+    c=MessageSegment.reply(event.message_id)
+    await fishing.finish(c+Message(message))
 
 @upgrade.handle()
 async def upgrade_handle(bot:Bot, event: Event):
     check_account(event)
     user_id = event.get_user_id()
     message = upgradeMain(user_id)
-    await upgrade.finish(message)
+    c=MessageSegment.reply(event.message_id)
+    await upgrade.finish(c+Message(message))
 
 @listPool.handle()
 async def listPool_handle(bot:Bot, event: Event):
     check_account(event)
     msg=listFishMain()
+    c=MessageSegment.reply(event.message_id)
     if msg[0]=='/':
-        await listPool.send(MessageSegment.image(msg))
+        await listPool.send(c+MessageSegment.image(msg))
         await aiofiles.os.remove(msg)
     else:
-        await listPool.finish(msg)
+        await listPool.finish(c+Message(msg))
     
 
 @leaderboard.handle()
 async def leaderboard_handle(bot:Bot, event: Event):
     check_account(event)
     message = leaderboardMain()
-    await leaderboard.finish(message)
+    c=MessageSegment.reply(event.message_id)
+    await leaderboard.finish(c+Message(message))
 
 @checkFish.handle()
 async def checkFish_handle(bot:Bot, event: Event, args:Message = CommandArg()):
     check_account(event)
     fishName = args.extract_plain_text()
     message = checkFishMain(fishName)
-    await checkFish.finish(message)
+    c=MessageSegment.reply(event.message_id)
+    await checkFish.finish(c+Message(message))
 
 @checkUser.handle()
 async def checkUser_handle(bot:Bot, event: Event):
     check_account(event)
     user_id = event.get_user_id()
     message = checkUserMain(user_id)
-    await checkUser.finish(message)
+    c=MessageSegment.reply(event.message_id)
+    await checkUser.finish(c+Message(message))
 
 @helpCommand.handle()
 async def helpCommand_handle(bot:Bot, event: Event):
     check_account(event)
     message = helpMain()
-    await helpCommand.finish(message)   
+    c=MessageSegment.reply(event.message_id)
+    await helpCommand.finish(c+Message(message))   

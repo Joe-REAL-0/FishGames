@@ -22,7 +22,10 @@ def listFishMain():
     im=Image.new(mode="RGB", size=(1090, 210+85*tp), color="white")
     bk = ImageDraw.Draw(im)
     bk.text((380, 35),text='鱼塘大屏',font=ImageFont.truetype(where+'MiSans-Medium.ttf', 80),fill="#adf5ff")
-    if len(poolData)>20 :bk.text((340, 5),text='当前随机展示池塘内二十种鱼',font=Font3,fill="#eeff00")
+    bk.text((770, 50), text='总鱼数: ', font=Font2, fill="black")
+    if len(poolData)>20 :
+        bk.text((340, 5),text='当前随机展示池塘内二十种鱼',font=Font3,fill="#eeff00")
+        bk.text((900, 50), text=str(len(poolData))+'种', font=Font2, fill="black")
     bk.text((100, 140),text='鱼名',font=Font1,fill="black")
     bk.text((480, 140),text='数量',font=Font1,fill="black")
     bk.text((860, 140),text='价格',font=Font1,fill="black")
@@ -32,6 +35,7 @@ def listFishMain():
         bk.text((480, y), text=str(data[2]), font=Font2, fill="black")
         bk.text((860, y), text=str(data[1]), font=Font2, fill="black")
         y += 85
+    
     place=where + str(time()) + ".jpg"
     im.save(place)
     return place
