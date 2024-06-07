@@ -9,7 +9,7 @@ from .ReleaseFish import releaseMain
 from .UpgradeRod import upgradeRodMain
 from .UpgradeBackpack import upgradeBackpackMain
 from .LeaderBoard import leaderboardMain
-from .SellFish import sellFishMain
+from .SellFish import SellFishMain
 from .ListFish import listFishMain
 from .CheckFish import checkFishMain
 from .CheckUser import checkUserMain
