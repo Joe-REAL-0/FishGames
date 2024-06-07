@@ -23,7 +23,7 @@ upgradeBackpack = on_command('升级背包')
 listPool = on_command('鱼塘大屏')
 leaderboard = on_command('排行榜')
 checkFish = on_command('查询鱼')
-checkUser = on_command('信息查询')
+checkUser = on_command('我的信息')
 
 def check_account(event):
     user_id = event.get_user_id()

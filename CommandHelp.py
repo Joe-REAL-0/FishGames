@@ -10,6 +10,6 @@ def helpMain(command:str = None):
         message+= "[升级鱼竿] - 升级钓鱼等级\n"
         message+= "[升级背包] - 升级背包容量\n"
         message+= "[查询鱼 鱼名] - 查询鱼的信息\n"
-        message+= "[我的背包] - 查询个人信息\n"
+        message+= "[我的信息] - 查询个人信息\n"
         message+= "[鱼塘大屏] - 查看鱼塘信息"
         return message
