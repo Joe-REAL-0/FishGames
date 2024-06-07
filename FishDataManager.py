@@ -19,7 +19,7 @@ class FishDataManager:
             cls._instance = super(FishDataManager, cls).__new__(cls)
         return cls._instance
     
-    def updateFishPrice(self):
+    async def updateFishPrice(self):
         for fish in self.fishData:
             fishValue = fish[1]
             fish[1] = generateFishPrice(fishValue)

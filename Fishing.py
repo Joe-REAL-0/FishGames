@@ -2,6 +2,7 @@ from .DatabaseManager import Database
 from .FishDataManager import FishDataManager
 from .PlayerBackPack import BackPack
 from random import random
+from asyncio import create_task
 from datetime import datetime,timedelta
 
 fishingCoolDownDict = {}
@@ -42,6 +43,6 @@ def fishingMain(id):
         else:
             message += "这些鱼已经全部加入你的背包\n"
         BackPack(id).updateBackpack()
-        fishManager.updateFishPrice()
+        create_task(fishManager.updateFishPrice())
 
     return message
