@@ -152,7 +152,7 @@ class Database:
         self.cursor.execute('SELECT * FROM backpack WHERE userId = ?', (self.userId,))
         result = self.cursor.fetchall()
         if len(result) == 0:
-            self.cursor.execute('INSERT INTO backpack (userId, backPackData) VALUES (?, ?)', (self.userId, '{}'))
+            self.cursor.execute('INSERT INTO backpack (userId, backPackData) VALUES (?, ?)', (self.userId, '[]'))
             self.connection.commit()
             return {}
         dataString = result[0][1]
