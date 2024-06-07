@@ -3,7 +3,7 @@ from .PlayerBackPack import BackPack
 
 def upgradeBackpackMain(id):
     db = Database(id)
-    level = db.selectRodLevel()
+    level = db.selectBackpackLevel()
     point = db.selectPoint()
     pointNeeded = int((2.5**level) * 15)
     if point < pointNeeded:
