@@ -39,7 +39,7 @@ def fishingMain(id):
         for fishName in fishDic:
             message += f"{fishName} *{fishDic[fishName]}\n"
             fishManager.reduceFish(fishName)
-            if not BackPack(id).add_fish(fishDic[fishName]): break
+            if not BackPack(id).add_fish(fish): break
         message += "-----------\n"
         if BackPack(id).isFull():
             message += "背包已满，有一些鱼逃回到鱼塘中了！\n"
