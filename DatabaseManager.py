@@ -150,9 +150,10 @@ class Database:
     def selectBackpack(self):
         if self.userId == None: return
         self.cursor.execute('SELECT * FROM backpack WHERE userId = ?', (self.userId,))
-        if len(self.cursor.fetchall()) == 0:
+        result = self.cursor.fetchall()
+        if len(result) == 0:
             self.cursor.execute('INSERT INTO backpack (userId, backPackData) VALUES (?, ?)', (self.userId, '{}'))
             self.connection.commit()
             return {}
-        dataString = self.cursor.fetchall()[0][1]
+        dataString = result[0][1]
         return json.loads(dataString)

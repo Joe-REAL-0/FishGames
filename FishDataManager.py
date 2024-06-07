@@ -6,7 +6,7 @@ import math
 time = datetime.now()
 
 def generateFishPrice(originPrice):
-    z = np.random.normal(0, 0.8) * 0.01
+    z = np.random.normal(0, 0.8) * 0.1
     return int(math.ceil(originPrice * (1 + z)))
 
 class FishDataManager:
@@ -21,8 +21,8 @@ class FishDataManager:
     
     def updateFishPrice(self):
         for fish in self.fishData:
-            fishValue = fish[2]
-            fish[2] = generateFishPrice(fishValue)
+            fishValue = fish[1]
+            fish[1] = generateFishPrice(fishValue)
         Database().updatePool(self.fishData)
 
     def getFishRandomly(self):
@@ -54,8 +54,8 @@ class FishDataManager:
     def reduceFish(self, fishName):
         for fish in self.fishData: 
             if fish[0] == fishName:
-                fish[1] -= 1
-                if fish[1] == 0:
+                fish[2] -= 1
+                if fish[2] == 0:
                     self.fishData.remove(fish)
                 break
         Database().reduceFish(fishName)

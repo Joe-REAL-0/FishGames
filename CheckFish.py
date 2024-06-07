@@ -4,7 +4,7 @@ from .FishDataManager import FishDataManager
 def checkFishMain(fishName):
     db=Database()
     userId,nickname=db.selectFishOwner(fishName)
-    fishValue = FishDataManager().getFishValue(fishName)
+    fishValue = FishDataManager().getFishByName(fishName)[2]
     db.close()
 
     if userId == None:
