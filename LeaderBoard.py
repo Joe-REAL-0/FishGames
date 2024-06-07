@@ -8,7 +8,7 @@ def calculateRodValue(level):
 def leaderboardMain():
     db = Database()
     allUserList = db.selectAllUser()
-    allRodLevelList = db.selectAllLevel()
+    allRodLevelList = db.selectAllRodLevel()
     matchingUserList = list(filter(lambda x: x[0][0] == x[1][0] , product(allUserList, allRodLevelList)))
     allUserWealthList = list(map(lambda x: (x[0][0], x[0][1], x[0][2] ,calculateRodValue(x[1][1])), matchingUserList))
     allUserWealthList.sort(key=lambda x: x[2]+x[3], reverse=True)

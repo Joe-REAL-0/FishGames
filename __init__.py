@@ -6,8 +6,10 @@ from .DatabaseManager import Database
 from .CommandHelp import helpMain
 from .Fishing import fishingMain
 from .ReleaseFish import releaseMain
-from .UpgradeRod import upgradeMain
+from .UpgradeRod import upgradeRodMain
+from .UpgradeBackpack import upgradeBackpackMain
 from .LeaderBoard import leaderboardMain
+from .SellFish import sellFishMain
 from .ListFish import listFishMain
 from .CheckFish import checkFishMain
 from .CheckUser import checkUserMain
@@ -15,7 +17,9 @@ from .CheckUser import checkUserMain
 helpCommand = on_command('钓鱼游戏')
 release = on_command('放生')
 fishing = on_command('钓鱼')
-upgrade = on_command('升级鱼竿')
+sellFish = on_command('出售')
+upgradeRod = on_command('升级鱼竿')
+upgradeBackpack = on_command('升级背包')
 listPool = on_command('鱼塘大屏')
 leaderboard = on_command('排行榜')
 checkFish = on_command('查询鱼')
@@ -36,11 +40,7 @@ async def release_handle(bot:Bot, event: Event, args:Message = CommandArg()):
     args_sp = args_sp = args.extract_plain_text().split(" ")
     fishName = args_sp[0]
     c=MessageSegment.reply(event.message_id)
-    try:
-        count = int(args_sp[1])
-    except:
-        await release.finish(c+Message("放生失败！\n*鱼的数量必须是个数字!"))
-    message = releaseMain(user_id, fishName, count)
+    message = releaseMain(user_id, fishName)
     await release.finish(c+Message(message))
 
 @fishing.handle()
@@ -51,13 +51,30 @@ async def fishing_handle(bot:Bot, event: Event):
     c=MessageSegment.reply(event.message_id)
     await fishing.finish(c+Message(message))
 
-@upgrade.handle()
+@sellFish.handle()
+async def sellFish_handle(bot:Bot, event: Event, args:Message = CommandArg()):
+    check_account(event)
+    user_id = event.get_user_id()
+    fishName = args.extract_plain_text()
+    message = sellFishMain(user_id, fishName)
+    c=MessageSegment.reply(event.message_id)
+    await sellFish.finish(c+Message(message))
+
+@upgradeRod.handle()
 async def upgrade_handle(bot:Bot, event: Event):
     check_account(event)
     user_id = event.get_user_id()
-    message = upgradeMain(user_id)
+    message = upgradeRodMain(user_id)
     c=MessageSegment.reply(event.message_id)
-    await upgrade.finish(c+Message(message))
+    await upgradeRod.finish(c+Message(message))
+
+@upgradeBackpack.handle()
+async def upgrade_handle(bot:Bot, event: Event):
+    check_account(event)
+    user_id = event.get_user_id()
+    message = upgradeBackpackMain(user_id)
+    c=MessageSegment.reply(event.message_id)
+    await upgradeBackpack.finish(c+Message(message))
 
 @listPool.handle()
 async def listPool_handle(bot:Bot, event: Event):
@@ -99,4 +116,5 @@ async def helpCommand_handle(bot:Bot, event: Event):
     check_account(event)
     message = helpMain()
     c=MessageSegment.reply(event.message_id)
-    await helpCommand.finish(c+Message(message))   
+    await helpCommand.finish(c+Message(message))
+
