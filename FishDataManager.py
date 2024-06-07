@@ -21,8 +21,8 @@ class FishDataManager:
     
     def updateFishPrice(self):
         for fish in self.fishData:
-            fishValue = fish[1]
-            fish[1] = generateFishPrice(fishValue)
+            fishValue = fish[2]
+            fish[2] = generateFishPrice(fishValue)
         Database().updatePool(self.fishData)
 
     def getFishRandomly(self):
@@ -54,8 +54,8 @@ class FishDataManager:
     def reduceFish(self, fishName):
         for fish in self.fishData: 
             if fish[0] == fishName:
-                fish[2] -= 1
-                if fish[2] == 0:
+                fish[1] -= 1
+                if fish[1] == 0:
                     self.fishData.remove(fish)
                 break
         Database().reduceFish(fishName)

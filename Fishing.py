@@ -2,14 +2,11 @@ from .DatabaseManager import Database
 from .FishDataManager import FishDataManager
 from .PlayerBackPack import BackPack
 from random import random
-from functools import reduce
 from datetime import datetime,timedelta
 
 fishingCoolDownDict = {}
 
 def fishingMain(id):
-    db=Database(id)
-    poolData=FishDataManager().fishData
     if len(poolData) == 0: return "池塘里暂时没有鱼,请晚点再来"
     poolData = [list(fish) for fish in poolData] 
     if id in fishingCoolDownDict and fishingCoolDownDict[id] > datetime.now():
@@ -19,17 +16,17 @@ def fishingMain(id):
         return f"每2小时可以钓鱼一次!\n你距离下次可钓鱼剩余:\n  {time_string}  "
     else:
         fishingCoolDownDict[id] = datetime.now() + timedelta(hours=2)
-    level=db.selectRodLevel()
+    level=Database(id).selectRodLevel()
     successRate=0.4 if level > 9 else 0.8-(level-1)*0.04
     fishDic = {}
-    message = f"使用 Lv.{level} 的鱼竿\n抛竿 {level} 次\n-----------\n"
-    for i in range(level if level <= 5 else level + 2*(level-5)):
+    fishingTimes = level if level <= 5 else level + 2*(level-5)
+    message = f"使用 Lv.{level} 的鱼竿\n抛竿 {fishingTimes} 次\n-----------\n"
+    for i in range(fishingTimes):
         if random() > successRate: 
             continue
         fish = FishDataManager().getFishRandomly()
         fishIndex = FishDataManager().getFishIndex(fish[0])
         fishDic[fish[0]] = fishDic.get(fish[0], 0) + 1
-        db.reduceFish(fish[0])
         if fish[2] > 1:
             fish[2] -= 1
         else:
@@ -41,7 +38,7 @@ def fishingMain(id):
         message += "你钓到了:\n"
         for fishName in fishDic:
             message += f"{fishName} *{fishDic[fishName]}\n"
-            FishDataManager.reduceFish(fishName)
+            FishDataManager().reduceFish(fishName)
             if not BackPack(id).add_fish(fishDic[fishName]): break
         message += "-----------\n"
         if BackPack(id).isFull():
