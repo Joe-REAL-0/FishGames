@@ -19,7 +19,7 @@ class BackPack:
         if fish in self.fishs:
             self.get_fish(fish)[1] += 1
             return True
-        self.fishs[self.user_id]([fish[0], 1, fish[1], self.user_id])
+        self.fishs[self.user_id] = [fish[0], 1, fish[1], self.user_id]
         return True
 
     def remove_fish(self, fish):
