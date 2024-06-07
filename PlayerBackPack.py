@@ -1,4 +1,4 @@
-from DatabaseManager import Database
+from .DatabaseManager import Database
 
 class BackPack:
     def __init__(self, user_id):

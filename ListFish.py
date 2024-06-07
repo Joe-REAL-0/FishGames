@@ -1,5 +1,5 @@
 from PIL import Image, ImageDraw, ImageFont
-from FishDataManager import FishDataManager
+from .FishDataManager import FishDataManager
 from random import shuffle
 from time import time
 import os

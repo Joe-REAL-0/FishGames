@@ -1,5 +1,5 @@
 from .DatabaseManager import Database
-from PlayerBackPack import BackPack
+from .PlayerBackPack import BackPack
 
 def checkUserMain(user_id):
     db = Database(user_id)
