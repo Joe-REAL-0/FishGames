@@ -7,8 +7,9 @@ from datetime import datetime,timedelta
 fishingCoolDownDict = {}
 
 def fishingMain(id):
+    fishManager = FishDataManager()
+    poolData = fishManager.fishData
     if len(poolData) == 0: return "池塘里暂时没有鱼,请晚点再来"
-    poolData = [list(fish) for fish in poolData] 
     if id in fishingCoolDownDict and fishingCoolDownDict[id] > datetime.now():
         time_difference = fishingCoolDownDict[id] - datetime.now()
         time_in_seconds = time_difference.total_seconds()
@@ -22,10 +23,9 @@ def fishingMain(id):
     fishingTimes = level if level <= 5 else level + 2*(level-5)
     message = f"使用 Lv.{level} 的鱼竿\n抛竿 {fishingTimes} 次\n-----------\n"
     for i in range(fishingTimes):
-        if random() > successRate: 
-            continue
-        fish = FishDataManager().getFishRandomly()
-        fishIndex = FishDataManager().getFishIndex(fish[0])
+        if random() > successRate: continue
+        fish = fishManager.getFishRandomly()
+        fishIndex = fishManager.getFishIndex(fish[0])
         fishDic[fish[0]] = fishDic.get(fish[0], 0) + 1
         if fish[2] > 1:
             fish[2] -= 1
@@ -38,7 +38,7 @@ def fishingMain(id):
         message += "你钓到了:\n"
         for fishName in fishDic:
             message += f"{fishName} *{fishDic[fishName]}\n"
-            FishDataManager().reduceFish(fishName)
+            fishManager.reduceFish(fishName)
             if not BackPack(id).add_fish(fishDic[fishName]): break
         message += "-----------\n"
         if BackPack(id).isFull():
@@ -46,6 +46,6 @@ def fishingMain(id):
         else:
             message += "这些鱼已经全部加入你的背包\n"
         BackPack(id).updateBackpack()
-        FishDataManager().updateFishPrice()
+        fishManager.updateFishPrice()
 
     return message
