@@ -9,6 +9,7 @@ fishingCoolDownDict = {}
 
 def fishingMain(id):
     fishManager = FishDataManager()
+    Database(id).updatePool(fishManager.fishData)
     poolData = fishManager.fishData
     if len(poolData) == 0: return "池塘里暂时没有鱼,请晚点再来"
     if id in fishingCoolDownDict and fishingCoolDownDict[id] > datetime.now():
