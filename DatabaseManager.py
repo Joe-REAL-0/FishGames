@@ -154,6 +154,11 @@ class Database:
         if len(result) == 0:
             self.cursor.execute('INSERT INTO backpack (userId, backPackData) VALUES (?, ?)', (self.userId, '[]'))
             self.connection.commit()
-            return {}
+            return []
         dataString = result[0][1]
-        return json.loads(dataString)
+        data = json.loads(dataString)
+        if data.__class__ != list:
+            self.cursor.execute('UPDATE backpack SET backPackData = ? WHERE userId = ?', ('[]', self.userId))
+            self.connection.commit()
+            data = []
+        return data
