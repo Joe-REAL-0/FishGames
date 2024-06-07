@@ -14,5 +14,5 @@ def checkUserMain(user_id):
     message += "----------\n"
     message += f"鱼竿等级: Lv.{rodLevel}\n"
     message += f"背包等级: Lv.{backpackLevel}\n"
-    BackPack(user_id).listBackpackFish
+    message += BackPack(user_id).listBackpackFish
     return message
