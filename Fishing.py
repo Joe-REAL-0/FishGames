@@ -25,12 +25,8 @@ def fishingMain(id):
     for i in range(fishingTimes):
         if random() > successRate: continue
         fish = fishManager.getFishRandomly()
-        fishIndex = fishManager.getFishIndex(fish[0])
         fishDic[fish[0]] = fishDic.get(fish[0], 0) + 1
-        if fish[2] > 1:
-            fish[2] -= 1
-        else:
-            poolData.pop(fishIndex)
+        fishManager.reduceFish(fish[0])
         if (len(poolData) == 0): break
     if len(fishDic) == 0:
         message += "运气不佳，一条鱼都没钓到"
