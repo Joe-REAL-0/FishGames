@@ -26,7 +26,8 @@ def fishingMain(id):
     message = f"使用 Lv.{level} 的鱼竿\n抛竿 {fishingTimes} 次\n-----------\n"
     for i in range(fishingTimes):
         if random() > successRate: continue
-        fish = fishManager.getFishRandomly()
+        fishIndex = fishManager.getFishIndexRandomly()
+        fish = poolData[fishIndex]
         fishDic[fish[0]] = fishDic.get(fish[0], 0) + 1
         if (len(poolData) == 0): break
     if len(fishDic) == 0:

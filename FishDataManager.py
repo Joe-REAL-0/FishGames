@@ -25,9 +25,9 @@ class FishDataManager:
             fish[1] = generateFishPrice(fishValue)
         Database().updatePool(self.fishData)
 
-    def getFishRandomly(self):
+    def getFishIndexRandomly(self):
         weights = [fish[2] for fish in self.fishData]
-        return np.random.choice(self.fishData, p = weights/np.sum(weights))
+        return np.random.choice([i for i in range(0,len(self.fishData))], p = weights/np.sum(weights))
     
     def getFishByName(self, fishName):
         for fish in self.fishData:
