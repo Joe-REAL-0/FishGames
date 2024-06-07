@@ -1,5 +1,4 @@
 from random import randint
-from .DatabaseManager import Database
 from .FishDataManager import FishDataManager
 from datetime import datetime,timedelta
 
@@ -8,9 +7,7 @@ fishReleaseCoolDownDict = {}
 def releaseMain(id,fishName):
     if not 0 < len(fishName) < 15:
         return "放生失败！\n*鱼的名称必须少于15字"
-    db = Database(id)
     if len(db.selectFish(fishName)) != 0:
-        db.close()
         return "放生失败！\n*鱼塘里已经存在这种鱼了！不能重复放生！"
     if id in fishReleaseCoolDownDict and fishReleaseCoolDownDict[id] > datetime.now():
         time_difference = fishReleaseCoolDownDict[id] - datetime.now()
@@ -22,5 +19,4 @@ def releaseMain(id,fishName):
     k=randint(0,3)
     value = randint(20+k*30,50+k*30)
     FishDataManager().addFish(fishName, id, fishName , value)
-    db.close()
     return f"放生成功！鱼塘因为 {fishName} 的加入变得更热闹了！\n目前这种鱼价值 {value} points/条"
