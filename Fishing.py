@@ -27,18 +27,20 @@ def fishingMain(user_id):
     for i in range(fishingTimes):
         if random() > successRate: continue
         fish = fishManager.getFishRandomly()
-        fishDic[fish] = fishDic.get(fish, 0) + 1
+        fishTuple = tuple(fish)
+        fishDic[fishTuple] = fishDic.get(fishTuple, 0) + 1
         fishManager.reduceFish(fish[0])
         if fishManager.isEmpty(): break
     if len(fishDic) == 0:
         message += "运气不佳，一条鱼都没钓到"
     else:
         message += "你钓到了:\n"
-        for fish in fishDic:
-            message += f"{fish[0]} *{fishDic[fish]}\n"
-            result = backpack.add_fish(fish, fishDic[fish])
+        for fishTuple in fishDic:
+            fish = list(fishTuple)
+            message += f"{fish[0]} *{fishDic[fishTuple]}\n"
+            result = backpack.add_fish(fish, fishDic[fishTuple])
             if result: continue
-            fishManager.increaseFish(fish, fishDic[fish])
+            fishManager.increaseFish(fish, fishDic[fishTuple])
         message += "-----------\n"
         if result:
             message += "这些鱼已经全部加入你的背包"
