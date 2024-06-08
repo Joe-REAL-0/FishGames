@@ -110,7 +110,7 @@ class Database:
 
     def increaseRodLevel(self):
         if self.userId == None: return
-        level = self.selectLevel()
+        level = self.selectRodLevel()
         pointNeeded = int(exp(level-1)*20)
         self.cursor.execute('UPDATE users SET point = point - ? WHERE userId = ?', (pointNeeded, self.userId))
         self.cursor.execute('UPDATE rod_levels SET level = level + 1 WHERE userId = ?', (self.userId,))
