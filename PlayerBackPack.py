@@ -34,13 +34,15 @@ class BackPack:
     
     def sell_fish(self, index, amount):
         fish = self.fishs[index]
+        db = Database(self.user_id)
         if fish[1] < amount: return False
         if fish[1] == amount:
             self.fishs.remove(fish)
-            Database(self.user_id).updateBackpack(self.fishs)
         else:
             fish[1] -= amount
-        Database(self.user_id).changePoint(fish[2] * amount)
+        db.changePoint(fish[2] * amount)
+        db.updateBackpack(self.fishs)
+        db.close()
         return True
 
     def isEmpty(self):
