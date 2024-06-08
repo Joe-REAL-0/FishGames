@@ -17,7 +17,8 @@ class BackPack:
         if self.isFull():
             return False
         if fish in self.fishs:
-            self.get_fish(fish)[1] += 1
+            for f in self.fishs:
+                if f == fish: f[1] += 1
             return True
         self.fishs.append([fish[0], 1, fish[1], self.user_id])
         return True
@@ -41,7 +42,10 @@ class BackPack:
         return len(self.fishs) == 0
     
     def isFull(self):
-        return len(self.fishs) == self.capacity
+        totalFish = 0
+        for fish in self.fishs:
+            totalFish += fish[1]
+        return totalFish == self.capacity
     
     def updateBackpack(self):
         Database(self.user_id).updateBackpack(self.fishs)
