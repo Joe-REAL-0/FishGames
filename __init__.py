@@ -42,7 +42,7 @@ async def release_handle(bot:Bot, event: Event, args:Message = CommandArg()):
     try:
         user_id = event.get_user_id()
         check_account(event)
-        args_sp = args_sp = args.extract_plain_text().split(" ")
+        args_sp = args.extract_plain_text().split(" ")
         fishName = args_sp[0]
         c=MessageSegment.reply(event.message_id)
         message =c + Message(releaseMain(user_id, fishName))
@@ -66,9 +66,10 @@ async def sellFish_handle(bot:Bot, event: Event, args:Message = CommandArg()):
     try:
         check_account(event)
         user_id = event.get_user_id()
-        fishName = args.extract_plain_text()
-        print(fishName)
-        message = SellFishMain(user_id, fishName)
+        asp = args.extract_plain_text().split(" ")
+        index = int(asp[0])
+        amount = int(asp[1])
+        message = SellFishMain(user_id, index , amount)
         message=MessageSegment.reply(event.message_id)+message
     except:
         message=traceback.format_exc()
