@@ -7,7 +7,8 @@ time = datetime.now()
 
 def generateFishPrice(originPrice):
     z = np.random.normal(0, 0.8) * 0.1
-    return int(math.ceil(originPrice * (1 + z)))
+    prize = int(math.ceil(originPrice * (1 + z))) if (originPrice * (1 + z)) > 10 else 10
+    return prize
 
 class FishDataManager:
     _instance = None
