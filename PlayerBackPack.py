@@ -6,12 +6,16 @@ class BackPack:
         self.fishs = Database(user_id).selectBackpack()
         level = Database(user_id).selectBackpackLevel()
         self.capacity = level * 3 + 1
-
-    def get_fish(self, index):
-        return self.fishs[index]
     
     def get_fish(self, fish):
-        return self.fishs.index(fish)
+        if type(fish) == int:
+            return self.fishs[fish]
+        elif type(fish) == str:
+            for f in self.fishs:
+                if fish == f[0]:
+                    return f
+        elif type(fish) == list:
+            return self.fishs.index(fish)
 
     def add_fish(self, fish, amount):
         if self.isFull():
