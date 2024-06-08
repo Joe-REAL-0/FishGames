@@ -63,7 +63,12 @@ class FishDataManager:
         for fish in self.fishData: 
             if fish[0] == fishName:
                 fish[2] -= 1
-                if fish[2] == 0:
-                    self.fishData.remove(fish)
+                if fish[2] == 0: self.fishData.remove(fish)
                 break
-        Database().reduceFish(fishName)
+
+    def increaseFish(self, fish, amount):
+        for f in self.fishData:
+            if f[0] == fish[0]:
+                f[2] += amount
+                return
+        self.addFish(fish)

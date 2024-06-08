@@ -26,7 +26,7 @@ def fishingMain(user_id):
     message = f"使用 Lv.{level} 的鱼竿\n抛竿 {fishingTimes} 次\n-----------\n"
     for i in range(fishingTimes):
         if random() > successRate: continue
-        fish = fishManager.getFishIndexRandomly()
+        fish = fishManager.getFishRandomly()
         fishDic[fish] = fishDic.get(fish, 0) + 1
         fishManager.reduceFish(fish[0])
         if fishManager.isEmpty(): break
@@ -36,15 +36,14 @@ def fishingMain(user_id):
         message += "你钓到了:\n"
         for fish in fishDic:
             message += f"{fish[0]} *{fishDic[fish]}\n"
-            if backpack.isFull():
-                fishManager.addFish(fish)
             result = backpack.add_fish(fish, fishDic[fish])
-            if not result: 
-                message += "背包已满，有一些鱼逃回到鱼塘中了!"
-                break
+            if result: continue
+            fishManager.increaseFish(fish, fishDic[fish])
         message += "-----------\n"
-        if not backpack.isFull():
+        if result:
             message += "这些鱼已经全部加入你的背包"
+        else:
+            message += "背包已满，有一些鱼没有逃回到鱼塘了"
         db.updateBackpack(backpack.fishs)
         create_task(fishManager.updateFishPrice())
 
