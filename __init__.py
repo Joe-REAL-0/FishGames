@@ -72,7 +72,7 @@ async def sellFish_handle(bot:Bot, event: Event, args:Message = CommandArg()):
         else:
             index = int(asp[0])
             amount = int(asp[1])
-        message = SellFishMain(user_id, index , amount)
+            message = SellFishMain(user_id, index , amount)
         message=MessageSegment.reply(event.message_id)+message
     except:
         message="指令格式有误，请检查输入是否正确"

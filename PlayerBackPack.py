@@ -49,7 +49,7 @@ class BackPack:
 
     def listBackpackFish(self):
         if self.isEmpty(): return "背包数据: 空\n"
-        message = "----------\n背包数据:"
+        message = "----------\n背包数据:\n"
         for i,fish in enumerate(self.fishs):
             message += f"{i+1} {fish[0]} *{fish[1]}\n   - (价值 {fish[2]}/条)\n"
         message += f"----------\n"
