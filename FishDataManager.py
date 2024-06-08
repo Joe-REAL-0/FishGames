@@ -46,11 +46,14 @@ class FishDataManager:
                 return i
         return None
     
-    def addFish(self, ownerID, fishName, fishValue):
-        self.fishData.append([fishName, fishValue, 50, ownerID])
-
-    def addFish(self, fish):
-        self.fishData.append(fish)
+    def addFish(self, *args):
+        if len(args) == 1 and isinstance(args[0], list):
+            self.fishData.append(args[0])
+        elif len(args) == 3:
+            ownerID, fishName, fishValue = args
+            self.fishData.append([fishName, fishValue, 50, ownerID])
+        else:
+            raise ValueError("Invalid arguments")
     
     def removeFish(self, fishName):
         for fish in self.fishData:
