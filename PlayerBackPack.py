@@ -4,6 +4,7 @@ class BackPack:
     def __init__(self, user_id):
         self.user_id = user_id
         self.fishs = Database(user_id).selectBackpack()
+        print(self.fishs)
         level = Database(user_id).selectBackpackLevel()
         self.capacity = level * 3 + 1
 
