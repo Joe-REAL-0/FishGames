@@ -28,19 +28,14 @@ class Database:
             self.cursor.execute('INSERT INTO users (userId, name, point) VALUES (?, ?, ?)', (self.userId ,name, 0))
             self.connection.commit()
 
+    # 鱼塘相关
+
     def updatePool(self, fishData):
         self.cursor.execute('DELETE FROM pool')
         self.connection.commit()
         for data in fishData:
             self.cursor.execute('INSERT INTO pool (fishName, value, count, owner) VALUES (?, ?, ?, ?)', (data[0], data[1], data[2], data[3]))
             self.connection.commit()
-
-    def updateBackpack(self, backPackData):
-        if self.userId == None: return
-        dataString = json.dumps(backPackData)
-        self.cursor.execute('UPDATE backpack SET backPackData = ? WHERE userId = ?', (dataString, self.userId))
-
-    # 鱼塘相关
 
     def insertFish(self, fishName, value):
         if self.userId == None: return
@@ -122,6 +117,11 @@ class Database:
         self.connection.commit()
     
     #背包相关
+
+    def updateBackpack(self, backPackData):
+        if self.userId == None: return
+        dataString = json.dumps(backPackData)
+        self.cursor.execute('UPDATE backpack SET backPackData = ? WHERE userId = ?', (dataString, self.userId))
     
     def selectBackpackLevel(self):
         if self.userId == None: return
@@ -156,5 +156,7 @@ class Database:
             self.connection.commit()
             return []
         dataString = result[0][1]
+        print("deserialized String:" + dataString)
         data = json.loads(dataString)
+        print("deserialized Data:" + data)
         return data

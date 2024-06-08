@@ -6,7 +6,6 @@ def checkUserMain(user_id):
     userInfo = db.selectUser()
     rodLevel = db.selectRodLevel()
     backpackLevel = db.selectBackpackLevel()
-    db.close()
 
     message = f"用户ID: {user_id}\n"
     message += f"昵称: {userInfo[0][1]}\n"
