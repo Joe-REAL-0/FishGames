@@ -75,7 +75,7 @@ async def sellFish_handle(bot:Bot, event: Event, args:Message = CommandArg()):
             message = SellFishMain(user_id, index , amount)
         message=MessageSegment.reply(event.message_id)+message
     except:
-        message="指令格式有误，请检查输入是否正确"
+        message=traceback.format_exc()
     await sellFish.finish(message)
 
 @upgradeRod.handle()
