@@ -20,7 +20,7 @@ class BackPack:
             if fish[0] == f[0]:
                 fish[1] += amount
                 return True
-        self.fishs.append([fish[0], amount, fish[1], self.user_id])
+        self.fishs.append([fish[0], amount, fish[2], self.user_id])
         return True
 
     def remove_fish(self, fish):
@@ -51,7 +51,7 @@ class BackPack:
         if self.isEmpty(): return "背包数据: 空\n"
         message = "----------\n背包数据:"
         for i,fish in enumerate(self.fishs):
-            message += f"{i+1} {fish[0]} *{fish[2]}\n   - (价值 {fish[1]}/条)\n"
+            message += f"{i+1} {fish[0]} *{fish[1]}\n   - (价值 {fish[2]}/条)\n"
         message += f"----------\n"
         message += f"背包容量: {len(self.fishs)}/{self.capacity}\n"
         message += "使用指令[出售 编号 数量]可以出售背包中的鱼\n"

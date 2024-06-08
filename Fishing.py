@@ -21,26 +21,27 @@ def fishingMain(user_id):
         fishingCoolDownDict[user_id] = datetime.now() + timedelta(hours=2)
     level=db.selectRodLevel()
     successRate=0.4 if level > 9 else 0.8-(level-1)*0.04
-    fishDic = {}
+    fishCountDic = {}
+    fishInfoDic = {}
     fishingTimes = level if level <= 5 else level + 2*(level-5)
     message = f"使用 Lv.{level} 的鱼竿\n抛竿 {fishingTimes} 次\n-----------\n"
     for i in range(fishingTimes):
         if random() > successRate: continue
         fish = fishManager.getFishRandomly()
-        fishTuple = tuple(fish)
-        fishDic[fishTuple] = fishDic.get(fishTuple, 0) + 1
+        fishInfoDic[fish[0]] = fish
+        fishCountDic[fish[0]] = fishCountDic.get(fish[0], 0) + 1
         fishManager.reduceFish(fish[0])
         if fishManager.isEmpty(): break
-    if len(fishDic) == 0:
+    if len(fishCountDic) == 0:
         message += "运气不佳，一条鱼都没钓到"
     else:
         message += "你钓到了:\n"
-        for fishTuple in fishDic:
-            fish = list(fishTuple)
-            message += f"{fish[0]} *{fishDic[fishTuple]}\n"
-            result = backpack.add_fish(fish, fishDic[fishTuple])
+        for fishName in fishCountDic:
+            fish = fishInfoDic[fishName]
+            message += f"{fishName} *{fishCountDic[fishName]}\n"
+            result = backpack.add_fish(fish, fishCountDic[fishName])
             if result: continue
-            fishManager.increaseFish(fish, fishDic[fishTuple])
+            fishManager.increaseFish(fish, fishCountDic[fishName])
         message += "-----------\n"
         if result:
             message += "这些鱼已经全部加入你的背包"
