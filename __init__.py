@@ -13,7 +13,7 @@ from .SellFish import SellFishMain
 from .ListFish import listFishMain
 from .CheckFish import checkFishMain
 from .CheckUser import checkUserMain
-importimport traceback
+import traceback
 
 helpCommand = on_command('钓鱼游戏')
 release = on_command('放生')
@@ -32,7 +32,10 @@ def check_account(event):
     db = Database(user_id)
     db.checkAccount(nickname)
     db.close()
-    
+
+@helpCommand.handle()
+async def helpCommand_handle():
+    await helpCommand.send(helpMain())
 
 @release.handle()
 async def release_handle(bot:Bot, event: Event, args:Message = CommandArg()):
@@ -64,7 +67,8 @@ async def sellFish_handle(bot:Bot, event: Event, args:Message = CommandArg()):
         check_account(event)
         user_id = event.get_user_id()
         fishName = args.extract_plain_text()
-        message = sellFishMain(user_id, fishName)
+        print(fishName)
+        message = SellFishMain(user_id, fishName)
         message=MessageSegment.reply(event.message_id)+message
     except:
         message=traceback.format_exc()
@@ -120,17 +124,6 @@ async def checkFish_handle(bot:Bot, event: Event, args:Message = CommandArg()):
         check_account(event)
         fishName = args.extract_plain_text()
         message = checkFishMain(fishName)
-        message=MessageSegment.reply(event.message_id)+message
-    except:
-        message=traceback.format_exc()
-    await checkFish.finish(message)
-
-@checkUser.handle()
-async def checkUser_handle(bot:Bot, event: Event):
-    try:
-        check_account(event)
-        user_id = event.get_user_id()
-        message = checkUserMain(user_id)
         message=MessageSegment.reply(event.message_id)+message
     except:
         message=traceback.format_exc()
