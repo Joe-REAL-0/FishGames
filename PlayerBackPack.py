@@ -33,6 +33,7 @@ class BackPack:
         return True
     
     def sell_fish(self, index, amount):
+        if index >= len(self.fishs): return False
         fish = self.fishs[index]
         db = Database(self.user_id)
         if fish[1] < amount: return False
