@@ -122,6 +122,7 @@ class Database:
         if self.userId == None: return
         dataString = json.dumps(backPackData)
         self.cursor.execute('UPDATE backpack SET backPackData = ? WHERE userId = ?', (dataString, self.userId))
+        self.connection.commit()
     
     def selectBackpackLevel(self):
         if self.userId == None: return
@@ -156,7 +157,5 @@ class Database:
             self.connection.commit()
             return []
         dataString = result[0][1]
-        print("deserialized String:" + dataString)
         data = json.loads(dataString)
-        print("deserialized Data:" + data)
         return data
