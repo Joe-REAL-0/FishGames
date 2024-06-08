@@ -45,7 +45,7 @@ def fishingMain(user_id):
         message += "-----------\n"
         if not backpack.isFull():
             message += "这些鱼已经全部加入你的背包"
-        backpack.updateBackpack()
+        Database(user_id).updateBackpack(backpack.fishs)
         create_task(fishManager.updateFishPrice())
 
     return message

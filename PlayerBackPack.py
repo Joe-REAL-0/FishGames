@@ -46,9 +46,6 @@ class BackPack:
         for fish in self.fishs:
             totalFish += fish[1]
         return totalFish == self.capacity
-    
-    def updateBackpack(self):
-        Database(self.user_id).updateBackpack(self.fishs)
 
     def listBackpackFish(self):
         if self.isEmpty(): return "背包数据: 空\n"
