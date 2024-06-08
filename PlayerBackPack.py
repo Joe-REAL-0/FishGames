@@ -54,6 +54,7 @@ class BackPack:
     
     def sell_all_fish(self):
         db = Database(self.user_id)
+        totalValue = self.getTotalValue()
         db.changePoint(totalValue)
         self.fishs = []
         db.updateBackpack(self.fishs)
