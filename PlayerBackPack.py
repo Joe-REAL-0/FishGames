@@ -6,6 +6,12 @@ class BackPack:
         self.fishs = Database(user_id).selectBackpack()
         level = Database(user_id).selectBackpackLevel()
         self.capacity = level * 3 + 1
+
+    def getTotalValue(self):
+        totalValue = 0
+        for fish in self.fishs:
+            totalValue += fish[1] * fish[2]
+        return totalValue
     
     def get_fish(self, fish):
         if type(fish) == int:
@@ -45,6 +51,13 @@ class BackPack:
         db.updateBackpack(self.fishs)
         db.close()
         return True
+    
+    def sell_all_fish(self):
+        db = Database(self.user_id)
+        db.changePoint(totalValue)
+        self.fishs = []
+        db.updateBackpack(self.fishs)
+        db.close()
 
     def isEmpty(self):
         return len(self.fishs) == 0

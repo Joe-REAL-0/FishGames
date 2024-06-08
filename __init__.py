@@ -10,6 +10,7 @@ from .UpgradeRod import upgradeRodMain
 from .UpgradeBackpack import upgradeBackpackMain
 from .LeaderBoard import leaderboardMain
 from .SellFish import SellFishMain
+from .SellAllFish import SellAllFishMain
 from .ListFish import listFishMain
 from .CheckFish import checkFishMain
 from .CheckUser import checkUserMain
@@ -19,6 +20,7 @@ helpCommand = on_command('钓鱼游戏')
 release = on_command('放生')
 fishing = on_command('钓鱼')
 sellFish = on_command('出售')
+sellAllFish = on_command('一键出售')
 upgradeRod = on_command('升级鱼竿')
 upgradeBackpack = on_command('升级背包')
 listPool = on_command('鱼塘大屏')
@@ -77,6 +79,17 @@ async def sellFish_handle(bot:Bot, event: Event, args:Message = CommandArg()):
     except:
         message=traceback.format_exc()
     await sellFish.finish(message)
+
+@sellAllFish.handle()
+async def sellAllFish_handle(bot:Bot, event: Event):
+    try:
+        check_account(event)
+        user_id = event.get_user_id()
+        message = SellAllFishMain(user_id)
+        message=MessageSegment.reply(event.message_id)+message
+    except:
+        message=traceback.format_exc()
+    await sellAllFish.finish(message)
 
 @upgradeRod.handle()
 async def upgrade_handle(bot:Bot, event: Event):
