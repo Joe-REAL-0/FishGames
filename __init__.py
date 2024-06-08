@@ -13,6 +13,7 @@ from .SellFish import SellFishMain
 from .ListFish import listFishMain
 from .CheckFish import checkFishMain
 from .CheckUser import checkUserMain
+import traceback
 
 helpCommand = on_command('钓鱼游戏')
 release = on_command('放生')
@@ -31,50 +32,78 @@ def check_account(event):
     db = Database(user_id)
     db.checkAccount(nickname)
     db.close()
-    
+
+@helpCommand.handle()
+async def helpCommand_handle():
+    await helpCommand.send(helpMain())
 
 @release.handle()
 async def release_handle(bot:Bot, event: Event, args:Message = CommandArg()):
-    user_id = event.get_user_id()
-    check_account(event)
-    args_sp = args_sp = args.extract_plain_text().split(" ")
-    fishName = args_sp[0]
-    c=MessageSegment.reply(event.message_id)
-    message = releaseMain(user_id, fishName)
-    await release.finish(c+Message(message))
+    try:
+        user_id = event.get_user_id()
+        check_account(event)
+        args_sp = args_sp = args.extract_plain_text().split(" ")
+        fishName = args_sp[0]
+        c=MessageSegment.reply(event.message_id)
+        message =c + Message(releaseMain(user_id, fishName))
+    except:
+        message=traceback.format_exc()
+    await release.finish(message)
 
 @fishing.handle()
 async def fishing_handle(bot:Bot, event: Event):
-    check_account(event)
-    user_id = event.get_user_id()
-    message = fishingMain(user_id)
-    c=MessageSegment.reply(event.message_id)
-    await fishing.finish(c+Message(message))
+    try:
+        check_account(event)
+        user_id = event.get_user_id()
+        c=MessageSegment.reply(event.message_id)
+        message =c+ Message(fishingMain(user_id))
+    except:
+        message=traceback.format_exc()
+    await fishing.finish(message)
 
 @sellFish.handle()
 async def sellFish_handle(bot:Bot, event: Event, args:Message = CommandArg()):
+<<<<<<< HEAD
     check_account(event)
     user_id = event.get_user_id()
     fishName = args.extract_plain_text()
     message = SellFishMain(user_id, fishName)
     c=MessageSegment.reply(event.message_id)
     await sellFish.finish(c+Message(message))
+=======
+    try:
+        check_account(event)
+        user_id = event.get_user_id()
+        fishName = args.extract_plain_text()
+        print(fishName)
+        message = SellFishMain(user_id, fishName)
+        message=MessageSegment.reply(event.message_id)+message
+    except:
+        message=traceback.format_exc()
+    await sellFish.finish(message)
+>>>>>>> 5c0e5ebc558b350f0ecd25b34e48e2c4dddac43b
 
 @upgradeRod.handle()
 async def upgrade_handle(bot:Bot, event: Event):
-    check_account(event)
-    user_id = event.get_user_id()
-    message = upgradeRodMain(user_id)
-    c=MessageSegment.reply(event.message_id)
-    await upgradeRod.finish(c+Message(message))
+    try:
+        check_account(event)
+        user_id = event.get_user_id()
+        message = upgradeRodMain(user_id)
+        message=MessageSegment.reply(event.message_id)+message
+    except:
+        message=traceback.format_exc()
+    await upgradeRod.finish(message)
 
 @upgradeBackpack.handle()
 async def upgrade_handle(bot:Bot, event: Event):
-    check_account(event)
-    user_id = event.get_user_id()
-    message = upgradeBackpackMain(user_id)
-    c=MessageSegment.reply(event.message_id)
-    await upgradeBackpack.finish(c+Message(message))
+    try:
+        check_account(event)
+        user_id = event.get_user_id()
+        message = upgradeBackpackMain(user_id)
+        message=MessageSegment.reply(event.message_id)+message
+    except:
+        message=traceback.format_exc()
+    await upgradeBackpack.finish(message)
 
 @listPool.handle()
 async def listPool_handle(bot:Bot, event: Event):
@@ -90,31 +119,33 @@ async def listPool_handle(bot:Bot, event: Event):
 
 @leaderboard.handle()
 async def leaderboard_handle(bot:Bot, event: Event):
-    check_account(event)
-    message = leaderboardMain()
-    c=MessageSegment.reply(event.message_id)
-    await leaderboard.finish(c+Message(message))
+    try:
+        check_account(event)
+        message = leaderboardMain()
+        message=MessageSegment.reply(event.message_id)+message
+    except:
+        message=traceback.format_exc()
+    await leaderboard.finish(message)
 
 @checkFish.handle()
 async def checkFish_handle(bot:Bot, event: Event, args:Message = CommandArg()):
-    check_account(event)
-    fishName = args.extract_plain_text()
-    message = checkFishMain(fishName)
-    c=MessageSegment.reply(event.message_id)
-    await checkFish.finish(c+Message(message))
+    try:
+        check_account(event)
+        fishName = args.extract_plain_text()
+        message = checkFishMain(fishName)
+        message=MessageSegment.reply(event.message_id)+message
+    except:
+        message=traceback.format_exc()
+    await checkFish.finish(message)
 
 @checkUser.handle()
 async def checkUser_handle(bot:Bot, event: Event):
-    check_account(event)
-    user_id = event.get_user_id()
-    message = checkUserMain(user_id)
-    c=MessageSegment.reply(event.message_id)
-    await checkUser.finish(c+Message(message))
-
-@helpCommand.handle()
-async def helpCommand_handle(bot:Bot, event: Event):
-    check_account(event)
-    message = helpMain()
-    c=MessageSegment.reply(event.message_id)
-    await helpCommand.finish(c+Message(message))
+    try:
+        check_account(event)
+        user_id = event.get_user_id()
+        message = checkUserMain(user_id)
+        message=MessageSegment.reply(event.message_id)+message
+    except:
+        message=traceback.format_exc()
+    await checkUser.finish(message)
 
