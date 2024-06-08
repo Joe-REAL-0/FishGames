@@ -157,8 +157,4 @@ class Database:
             return []
         dataString = result[0][1]
         data = json.loads(dataString)
-        if data.__class__ != list:
-            self.cursor.execute('UPDATE backpack SET backPackData = ? WHERE userId = ?', ('[]', self.userId))
-            self.connection.commit()
-            data = []
         return data

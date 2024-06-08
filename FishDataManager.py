@@ -19,15 +19,20 @@ class FishDataManager:
             cls._instance = super(FishDataManager, cls).__new__(cls)
         return cls._instance
     
+    def isEmpty(self):
+        return len(self.fishData) == 0
+    
     async def updateFishPrice(self):
         for fish in self.fishData:
             fishValue = fish[1]
             fish[1] = generateFishPrice(fishValue)
         Database().updatePool(self.fishData)
 
-    def getFishIndexRandomly(self):
-        weights = [fish[2] for fish in self.fishData]
-        return np.random.choice([i for i in range(0,len(self.fishData))], p = weights/np.sum(weights))
+    def getFishRandomly(self):
+        totalWeight = sum([fish[2] for fish in self.fishData])
+        weights = [(fish[2]/totalWeight) for fish in self.fishData]
+        index = np.random.choice(range(len(self.fishData)), p=weights)
+        return self.fishData[index]
     
     def getFishByName(self, fishName):
         for fish in self.fishData:
@@ -43,8 +48,10 @@ class FishDataManager:
     
     def addFish(self, ownerID, fishName, fishValue):
         self.fishData.append([fishName, fishValue, 50, ownerID])
-        Database(ownerID).insertFish(fishName, fishValue)
 
+    def addFish(self, fish):
+        self.fishData.append(fish)
+    
     def removeFish(self, fishName):
         for fish in self.fishData:
             if fish[0] == fishName:

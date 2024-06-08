@@ -13,14 +13,14 @@ class BackPack:
     def get_fish(self, fish):
         return self.fishs.index(fish)
 
-    def add_fish(self, fish):
+    def add_fish(self, fish, amount):
         if self.isFull():
             return False
-        if fish in self.fishs:
-            for f in self.fishs:
-                if f == fish: f[1] += 1
-            return True
-        self.fishs.append([fish[0], 1, fish[1], self.user_id])
+        for f in self.fishs:
+            if fish[0] == f[0]:
+                fish[1] += amount
+                return True
+        self.fishs.append([fish[0], amount, fish[1], self.user_id])
         return True
 
     def remove_fish(self, fish):
