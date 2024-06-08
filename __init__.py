@@ -56,7 +56,7 @@ async def sellFish_handle(bot:Bot, event: Event, args:Message = CommandArg()):
     check_account(event)
     user_id = event.get_user_id()
     fishName = args.extract_plain_text()
-    message = sellFishMain(user_id, fishName)
+    message = SellFishMain(user_id, fishName)
     c=MessageSegment.reply(event.message_id)
     await sellFish.finish(c+Message(message))
 
