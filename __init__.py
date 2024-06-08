@@ -67,12 +67,15 @@ async def sellFish_handle(bot:Bot, event: Event, args:Message = CommandArg()):
         check_account(event)
         user_id = event.get_user_id()
         asp = args.extract_plain_text().split(" ")
-        index = int(asp[0])
-        amount = int(asp[1])
+        if(len(asp)!=2):
+            message= SellFishMain(user_id)
+        else:
+            index = int(asp[0])
+            amount = int(asp[1])
         message = SellFishMain(user_id, index , amount)
         message=MessageSegment.reply(event.message_id)+message
     except:
-        message=traceback.format_exc()
+        message="指令格式有误，请检查输入是否正确"
     await sellFish.finish(message)
 
 @upgradeRod.handle()
