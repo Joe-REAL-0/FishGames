@@ -1,4 +1,4 @@
-from PlayerBackPack import BackPack
+from .PlayerBackPack import BackPack
 
 def SellAllFishMain(id):
     backpack = BackPack(id)
