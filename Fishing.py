@@ -12,6 +12,7 @@ def fishingMain(user_id):
     backpack = BackPack(user_id)
     db = Database(user_id)
     if fishManager.isEmpty(): return "池塘里暂时没有鱼,请晚点再来"
+    if backpack.isFull(): return "背包已满,请先出售一些鱼"
     if user_id in fishingCoolDownDict and fishingCoolDownDict[user_id] > datetime.now():
         time_difference = fishingCoolDownDict[user_id] - datetime.now()
         time_in_seconds = time_difference.total_seconds()
