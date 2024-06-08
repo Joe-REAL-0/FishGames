@@ -63,14 +63,6 @@ async def fishing_handle(bot:Bot, event: Event):
 
 @sellFish.handle()
 async def sellFish_handle(bot:Bot, event: Event, args:Message = CommandArg()):
-<<<<<<< HEAD
-    check_account(event)
-    user_id = event.get_user_id()
-    fishName = args.extract_plain_text()
-    message = SellFishMain(user_id, fishName)
-    c=MessageSegment.reply(event.message_id)
-    await sellFish.finish(c+Message(message))
-=======
     try:
         check_account(event)
         user_id = event.get_user_id()
@@ -81,7 +73,6 @@ async def sellFish_handle(bot:Bot, event: Event, args:Message = CommandArg()):
     except:
         message=traceback.format_exc()
     await sellFish.finish(message)
->>>>>>> 5c0e5ebc558b350f0ecd25b34e48e2c4dddac43b
 
 @upgradeRod.handle()
 async def upgrade_handle(bot:Bot, event: Event):
