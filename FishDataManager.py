@@ -54,7 +54,7 @@ class FishDataManager:
         elif len(args) == 3:
             ownerID, fishName, fishValue = args
             self.fishData.append([fishName, fishValue, 50, ownerID])
-            Database().insertFish(fishName, fishValue)
+            Database(ownerID).insertFish(fishName, fishValue)
         else:
             raise ValueError("Invalid arguments")
     
