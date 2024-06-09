@@ -34,6 +34,7 @@ class Database:
         self.cursor.execute('DELETE FROM pool')
         self.connection.commit()
         for data in fishData:
+            if data[1] == 0: continue
             self.cursor.execute('INSERT INTO pool (fishName, value, count, owner) VALUES (?, ?, ?, ?)', (data[0], data[1], data[2], data[3]))
             self.connection.commit()
 
