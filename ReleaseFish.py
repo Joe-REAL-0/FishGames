@@ -1,5 +1,6 @@
 from random import randint
 from .FishDataManager import FishDataManager
+from .DatabaseManager import Database
 from datetime import datetime,timedelta
 
 fishReleaseCoolDownDict = {}
@@ -19,4 +20,5 @@ def releaseMain(id,fishName):
     k=randint(0,3)
     value = randint(15+k*30,20+k*30)
     FishDataManager().addFish(id, fishName , value)
+    Database().updatePool(FishDataManager().fishData)
     return f"放生成功！鱼塘因为 {fishName} 的加入变得更热闹了！\n目前这种鱼价值 {value} points/条"

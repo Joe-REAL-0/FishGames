@@ -29,10 +29,10 @@ def fishingMain(user_id):
     for i in range(fishingTimes):
         if random() > successRate: continue
         fish = fishManager.getFishRandomly()
+        if not fish: break
         fishInfoDic[fish[0]] = fish
         fishCountDic[fish[0]] = fishCountDic.get(fish[0], 0) + 1
         fishManager.reduceFish(fish[0])
-        if fishManager.isEmpty(): break
     if len(fishCountDic) == 0:
         message += "运气不佳，一条鱼都没钓到"
     else:

@@ -31,6 +31,7 @@ class FishDataManager:
 
     def getFishRandomly(self):
         totalWeight = sum([fish[2] for fish in self.fishData])
+        if totalWeight == 0: return None
         weights = [(fish[2]/totalWeight) for fish in self.fishData]
         index = np.random.choice(range(len(self.fishData)), p=weights)
         return self.fishData[index]
