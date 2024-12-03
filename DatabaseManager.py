@@ -1,20 +1,27 @@
-import sqlite3
+import mysql.connector
 from math import exp
 import json
 
 class Database:
+    host = 'localhost'
+    port = 3306
+    user = "root"
+    password = "password"
+
     def __init__(self,id = None):
         self.userId = id
-        self.connection = sqlite3.connect('database.db')
+        self.connection = mysql.connector.connect(
+            host = self.host,
+            port = self.port,
+            user = self.user,
+            password = self.password,
+            database = 'FishingGame'
+        )
         self.cursor = self.connection.cursor()
         self.cursor.execute('CREATE TABLE IF NOT EXISTS users (userId TEXT PRIMARY KEY, name TEXT, point INTEGER)')
-        self.connection.commit()
         self.cursor.execute('CREATE TABLE IF NOT EXISTS rod_levels (userId TEXT PRIMARY KEY, level INTEGER)')
-        self.connection.commit()
         self.cursor.execute('CREATE TABLE IF NOT EXISTS backpack_levels (userId TEXT PRIMARY KEY, level INTEGER)')
-        self.connection.commit()
         self.cursor.execute('CREATE TABLE IF NOT EXISTS backpack (userId TEXT, backPackData TEXT)')
-        self.connection.commit()
         self.cursor.execute('CREATE TABLE IF NOT EXISTS pool (fishName TEXT, value INTEGER, count INTEGER, owner TEXT)')
         self.connection.commit()
 
@@ -32,11 +39,10 @@ class Database:
 
     def updatePool(self, fishData):
         self.cursor.execute('DELETE FROM pool')
-        self.connection.commit()
         for data in fishData:
             if data[1] == 0: continue
             self.cursor.execute('INSERT INTO pool (fishName, value, count, owner) VALUES (?, ?, ?, ?)', (data[0], data[1], data[2], data[3]))
-            self.connection.commit()
+        self.connection.commit()
 
     def insertFish(self, fishName, value):
         if self.userId == None: return
@@ -45,10 +51,9 @@ class Database:
 
     def reduceFish(self, fishName):
         self.cursor.execute('UPDATE pool SET count = count - 1 WHERE fishName = ?', (fishName,))
-        self.connection.commit()
         if self.cursor.execute('SELECT count FROM pool WHERE fishName = ?', (fishName,)).fetchone()[0] == 0:
             self.cursor.execute('DELETE FROM pool WHERE fishName = ?', (fishName,))
-            self.connection.commit()
+        self.connection.commit()
 
     def removeFish(self, fishName):
         self.cursor.execute('DELETE FROM pool WHERE fishName = ?', (fishName,))
