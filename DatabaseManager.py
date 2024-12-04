@@ -18,11 +18,11 @@ class Database:
             database = 'FishingGame'
         )
         self.cursor = self.connection.cursor()
-        self.cursor.execute('CREATE TABLE IF NOT EXISTS users (userId TEXT PRIMARY KEY, name TEXT, point INTEGER)')
-        self.cursor.execute('CREATE TABLE IF NOT EXISTS rod_levels (userId TEXT PRIMARY KEY, level INTEGER)')
-        self.cursor.execute('CREATE TABLE IF NOT EXISTS backpack_levels (userId TEXT PRIMARY KEY, level INTEGER)')
-        self.cursor.execute('CREATE TABLE IF NOT EXISTS backpack (userId TEXT, backPackData TEXT)')
-        self.cursor.execute('CREATE TABLE IF NOT EXISTS pool (fishName TEXT, value INTEGER, count INTEGER, owner TEXT)')
+        self.cursor.execute('CREATE TABLE IF NOT EXISTS users (userId VAECHAR(128) PRIMARY KEY, name VAECHAR(128), point INTEGER)')
+        self.cursor.execute('CREATE TABLE IF NOT EXISTS rod_levels (userId VAECHAR(128) PRIMARY KEY, level INTEGER)')
+        self.cursor.execute('CREATE TABLE IF NOT EXISTS backpack_levels (userId VAECHAR(128) PRIMARY KEY, level INTEGER)')
+        self.cursor.execute('CREATE TABLE IF NOT EXISTS backpack (userId VAECHAR(128), backPackData VAECHAR(128))')
+        self.cursor.execute('CREATE TABLE IF NOT EXISTS pool (fishName VAECHAR(128), value INTEGER, count INTEGER, owner VAECHAR(128))')
         self.connection.commit()
 
     def close(self):
