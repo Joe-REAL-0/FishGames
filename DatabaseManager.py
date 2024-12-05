@@ -7,22 +7,30 @@ class Database:
     port = 3306
     user = "root"
     password = "password"
+    dbName = 'FishingGame'
 
     def __init__(self,id = None):
         self.userId = id
+
         self.connection = mysql.connector.connect(
             host = self.host,
             port = self.port,
             user = self.user,
-            password = self.password,
-            database = 'FishingGame'
+            password = self.password
         )
+
+        #创建数据库
+        self.cursor = self.connection.cursor()
+        self.cursor.execute(f'CREATE DATABASE IF NOT EXISTS {self.dbName}')
+        self.connection.commit()
+
+        #设置操作游标并检查表
         self.cursor = self.connection.cursor(prepared = True)
         self.cursor.execute('CREATE TABLE IF NOT EXISTS users (userId VARCHAR(128) PRIMARY KEY, name VARCHAR(128), point INTEGER)')
         self.cursor.execute('CREATE TABLE IF NOT EXISTS rod_levels (userId VARCHAR(128) PRIMARY KEY, level INTEGER)')
         self.cursor.execute('CREATE TABLE IF NOT EXISTS backpack_levels (userId VARCHAR(128) PRIMARY KEY, level INTEGER)')
         self.cursor.execute('CREATE TABLE IF NOT EXISTS backpack (userId VARCHAR(128), backPackData VARCHAR(128))')
-        self.cursor.execute('CREATE TABLE IF NOT EXISTS pool (fishName VARCHAR(128), value INTEGER, count INTEGER, owner VAECHAR(128))')
+        self.cursor.execute('CREATE TABLE IF NOT EXISTS pool (fishName VARCHAR(128), value INTEGER, count INTEGER, owner VARCHAR(128))')
         self.connection.commit()
 
     def close(self):
@@ -132,7 +140,8 @@ class Database:
     
     def selectBackpackLevel(self):
         if self.userId == None: return
-        if len(self.cursor.execute('SELECT * FROM backpack_levels WHERE userId = %s', (self.userId,)).fetchall()) == 0:
+        self.cursor.execute('SELECT * FROM backpack_levels WHERE userId = %s', (self.userId,))
+        if len(self.cursor.fetchall()) == 0:
             self.insertBackpackLevel(1)
         self.cursor.execute('SELECT * FROM backpack_levels WHERE userId = %s', (self.userId,))
         return self.cursor.fetchall()[0][1]
