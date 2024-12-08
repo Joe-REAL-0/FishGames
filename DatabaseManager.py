@@ -17,7 +17,8 @@ class Database:
             host = self.host,
             port = self.port,
             user = self.user,
-            password = self.password
+            password = self.password,
+            charset = 'utf8mb4'
         )
 
         #检查数据库
@@ -27,7 +28,6 @@ class Database:
 
         #连接数据库
         self.connection.database = self.dbName
-        self.connection.charset = 'utf8mb4'
 
         #设置操作游标并检查表
         self.cursor = self.connection.cursor(prepared = True)
