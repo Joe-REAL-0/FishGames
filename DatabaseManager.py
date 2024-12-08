@@ -27,6 +27,7 @@ class Database:
 
         #连接数据库
         self.connection.database = self.dbName
+        self.connection.charset = 'utf8mb4'
 
         #设置操作游标并检查表
         self.cursor = self.connection.cursor(prepared = True)
@@ -60,7 +61,6 @@ class Database:
 
     def insertFish(self, fishName, value):
         if self.userId == None: return
-        fishName = fishName.encode('utf-8')
         self.cursor.execute('INSERT INTO pool (fishName, value, count, owner) VALUES (%s, %s, %s, %s)', (fishName, value, 50, self.userId))
         self.connection.commit()
 
