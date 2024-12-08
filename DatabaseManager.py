@@ -60,6 +60,7 @@ class Database:
 
     def insertFish(self, fishName, value):
         if self.userId == None: return
+        fishName = fishName.decode('utf-8')
         self.cursor.execute('INSERT INTO pool (fishName, value, count, owner) VALUES (%s, %s, %s, %s)', (fishName, value, 50, self.userId))
         self.connection.commit()
 
