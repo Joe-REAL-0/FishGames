@@ -18,7 +18,7 @@ class Database:
             port = self.port,
             user = self.user,
             password = self.password,
-            charset = 'utf8mb4'
+            charset = 'utf8'
         )
 
         #检查数据库
