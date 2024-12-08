@@ -7,11 +7,12 @@ class Database:
     port = 3306
     user = "root"
     password = "password"
-    dbName = 'FishingGame'
+    dbName = 'fishing_game'
 
     def __init__(self,id = None):
         self.userId = id
 
+        #建立连接
         self.connection = mysql.connector.connect(
             host = self.host,
             port = self.port,
@@ -19,10 +20,13 @@ class Database:
             password = self.password
         )
 
-        #创建数据库
+        #检查数据库
         self.cursor = self.connection.cursor()
         self.cursor.execute(f'CREATE DATABASE IF NOT EXISTS {self.dbName}')
         self.connection.commit()
+
+        #连接数据库
+        self.connection.database = self.dbName
 
         #设置操作游标并检查表
         self.cursor = self.connection.cursor(prepared = True)
