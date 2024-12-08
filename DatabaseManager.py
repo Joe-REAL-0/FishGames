@@ -33,7 +33,7 @@ class Database:
         self.cursor.execute('CREATE TABLE IF NOT EXISTS users (userId VARCHAR(128) PRIMARY KEY, name VARCHAR(128), point INTEGER)')
         self.cursor.execute('CREATE TABLE IF NOT EXISTS rod_levels (userId VARCHAR(128) PRIMARY KEY, level INTEGER)')
         self.cursor.execute('CREATE TABLE IF NOT EXISTS backpack_levels (userId VARCHAR(128) PRIMARY KEY, level INTEGER)')
-        self.cursor.execute('CREATE TABLE IF NOT EXISTS backpack (userId VARCHAR(128), backPackData VARCHAR(128))')
+        self.cursor.execute('CREATE TABLE IF NOT EXISTS backpack (userId VARCHAR(128) PRIMARY KEY, backPackData VARCHAR(128))')
         self.cursor.execute('CREATE TABLE IF NOT EXISTS pool (fishName VARCHAR(128), value INTEGER, count INTEGER, owner VARCHAR(128))')
         self.connection.commit()
 
@@ -45,6 +45,8 @@ class Database:
         self.cursor.execute('SELECT * FROM users WHERE userId = %s', (self.userId,))
         if len(self.cursor.fetchall()) == 0:
             self.cursor.execute('INSERT INTO users (userId, name, point) VALUES (%s, %s, %s)', (self.userId ,name, 0))
+            self.cursor.execute('INSERT INTO rod_levels (userId, level) VALUES (%s, %s)', (self.userId, 1))
+            self.cursor.execute('INSERT INTO backpack_levels (userId, level) VALUES (%s, %s)', (self.userId, 1))
             self.connection.commit()
 
     # 鱼塘相关
