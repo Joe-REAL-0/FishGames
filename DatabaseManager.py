@@ -18,6 +18,7 @@ class Database:
             port = self.port,
             user = self.user,
             password = self.password,
+            charset = 'utf8'
         )
 
         #检查数据库
@@ -30,11 +31,11 @@ class Database:
 
         #设置操作游标并检查表
         self.cursor = self.connection.cursor(prepared = True)
-        self.cursor.execute('CREATE TABLE IF NOT EXISTS users (userId TEXT(256) PRIMARY KEY, name TEXT(256), point INTEGER)')
-        self.cursor.execute('CREATE TABLE IF NOT EXISTS rod_levels (userId TEXT(256) PRIMARY KEY, level INTEGER)')
-        self.cursor.execute('CREATE TABLE IF NOT EXISTS backpack_levels (userId TEXT(256) PRIMARY KEY, level INTEGER)')
-        self.cursor.execute('CREATE TABLE IF NOT EXISTS backpack (userId TEXT(256) PRIMARY KEY, backPackData TEXT(256))')
-        self.cursor.execute('CREATE TABLE IF NOT EXISTS pool (fishName TEXT(256), value INTEGER, count INTEGER, owner TEXT(256))')
+        self.cursor.execute('CREATE TABLE IF NOT EXISTS users (userId VARCHAR(32) PRIMARY KEY, name TEXT, point INTEGER)')
+        self.cursor.execute('CREATE TABLE IF NOT EXISTS rod_levels (userId VARCHAR(32) PRIMARY KEY, level INTEGER)')
+        self.cursor.execute('CREATE TABLE IF NOT EXISTS backpack_levels (userId VARCHAR(32) PRIMARY KEY, level INTEGER)')
+        self.cursor.execute('CREATE TABLE IF NOT EXISTS backpack (userId VARCHAR(32) PRIMARY KEY, backPackData TEXT)')
+        self.cursor.execute('CREATE TABLE IF NOT EXISTS pool (fishName TEXT, value INTEGER, count INTEGER, owner TEXT)')
         self.connection.commit()
 
     def close(self):
