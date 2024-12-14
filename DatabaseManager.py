@@ -18,6 +18,7 @@ class Database:
             port = self.port,
             user = self.user,
             password = self.password,
+            use_unicode = True,
             charset = 'utf8'
         )
 
