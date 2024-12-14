@@ -30,11 +30,11 @@ class Database:
 
         #设置操作游标并检查表
         self.cursor = self.connection.cursor(prepared = True)
-        self.cursor.execute('CREATE TABLE IF NOT EXISTS users (userId TEXT(512) PRIMARY KEY, name TEXT(512), point INTEGER)')
-        self.cursor.execute('CREATE TABLE IF NOT EXISTS rod_levels (userId TEXT(512) PRIMARY KEY, level INTEGER)')
-        self.cursor.execute('CREATE TABLE IF NOT EXISTS backpack_levels (userId TEXT(512) PRIMARY KEY, level INTEGER)')
-        self.cursor.execute('CREATE TABLE IF NOT EXISTS backpack (userId TEXT(512) PRIMARY KEY, backPackData TEXT(512))')
-        self.cursor.execute('CREATE TABLE IF NOT EXISTS pool (fishName TEXT(512), value INTEGER, count INTEGER, owner TEXT(512))')
+        self.cursor.execute('CREATE TABLE IF NOT EXISTS users (userId TEXT(256) PRIMARY KEY, name TEXT(256), point INTEGER)')
+        self.cursor.execute('CREATE TABLE IF NOT EXISTS rod_levels (userId TEXT(256) PRIMARY KEY, level INTEGER)')
+        self.cursor.execute('CREATE TABLE IF NOT EXISTS backpack_levels (userId TEXT(256) PRIMARY KEY, level INTEGER)')
+        self.cursor.execute('CREATE TABLE IF NOT EXISTS backpack (userId TEXT(256) PRIMARY KEY, backPackData TEXT(256))')
+        self.cursor.execute('CREATE TABLE IF NOT EXISTS pool (fishName TEXT(256), value INTEGER, count INTEGER, owner TEXT(256))')
         self.connection.commit()
 
     def close(self):
