@@ -1,4 +1,4 @@
-import mysql.connector
+import pymysql
 from math import exp
 import json
 
@@ -13,13 +13,11 @@ class Database:
         self.userId = id
 
         #建立连接
-        self.connection = mysql.connector.connect(
+        self.connection = pymysql.connect(
             host = self.host,
             port = self.port,
             user = self.user,
-            password = self.password,
-            use_unicode = True,
-            charset = 'utf8'
+            password = self.password
         )
 
         #检查数据库
