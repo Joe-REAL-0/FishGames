@@ -17,7 +17,8 @@ class Database:
             host = self.host,
             port = self.port,
             user = self.user,
-            password = self.password
+            password = self.password,
+            database = self.dbName
         )
 
         #检查数据库
@@ -29,7 +30,6 @@ class Database:
         self.connection.database = self.dbName
 
         #设置操作游标并检查表
-        self.cursor = self.connection.cursor(prepared = True)
         self.cursor.execute('CREATE TABLE IF NOT EXISTS users (userId VARCHAR(32) PRIMARY KEY, name TEXT, point INTEGER)')
         self.cursor.execute('CREATE TABLE IF NOT EXISTS rod_levels (userId VARCHAR(32) PRIMARY KEY, level INTEGER)')
         self.cursor.execute('CREATE TABLE IF NOT EXISTS backpack_levels (userId VARCHAR(32) PRIMARY KEY, level INTEGER)')
